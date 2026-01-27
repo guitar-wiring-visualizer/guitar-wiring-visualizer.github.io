@@ -9,6 +9,7 @@ import {
     WIRE_COLOR_BLUE
 } from "./diagram.js"
 import { DPDTOnOn, DPDTOnOffOn, DPDTOnOnOn, Potentiometer, Wire, Humbucker, StratPickup, MonoJack } from "./components.js";
+import { Visualizer } from "./visualizer.js";
 
 const componentClassMap = { Potentiometer, DPDTOnOn, DPDTOnOffOn, DPDTOnOnOn, Humbucker, StratPickup, MonoJack };
 
@@ -28,6 +29,8 @@ const setupApp = () => {
 
     const diagramLayer = createDiagramLayer();
 
+    window.GWVVisualizer = new Visualizer(diagramLayer);
+
     enableDragDropFromLibrary(diagramLayer);
 
     const transformer = addTransformer(diagramLayer);
@@ -39,6 +42,70 @@ const setupApp = () => {
     enableToolbar(transformer);
     enableDrawWire(diagramLayer);
     enableFlipSwitchButton(transformer);
+    enableVisualizerButton();
+}
+
+// function demoAnimateShadowLine(diagramLayer) {
+//     const stage = diagramLayer.getStage();
+
+//     const visLayer = new Konva.Layer();
+//     stage.add(visLayer);
+
+//     const wireLine = new Konva.Line({
+//         points: [10, 140, 200, 200, 600, 40],
+//         stroke: 'red',
+//         strokeWidth: 5,
+//         lineCap: 'butt',
+//         lineJoin: 'round',
+//         shadowColor: 'red',
+//         tension: 0.7
+//     });
+
+//     visLayer.add(wireLine);
+
+//     const maxShadow = 10;
+//     const speed = 15;
+
+//     let currentShadow = 0;
+//     let increasing = true;
+
+//     const visAnimation = new Konva.Animation((frame) => {
+//         // console.log({ currentShadow });
+//         if (currentShadow > maxShadow + 1 || currentShadow < 0) {
+//             currentShadow = 0;
+//             increasing = true;
+//         }
+//         if (currentShadow > maxShadow) {
+//             increasing = false;
+//         }
+//         const changeAmount = (frame.timeDiff / 1000) * speed;
+//         if (increasing) {
+//             currentShadow = currentShadow + changeAmount;
+//         } else {
+//             currentShadow = currentShadow - changeAmount;
+//         }
+//         wireLine.shadowBlur(currentShadow);
+//         wireLine.shadowOpacity(10 / currentShadow);
+//     }, visLayer);
+
+//     visAnimation.start();
+
+//     setTimeout(() => { visAnimation.stop(); }, 10000);
+// }
+
+function enableVisualizerButton() {
+    const visButton = document.getElementById("vis-button");
+    const originalText = visButton.textContent;
+    visButton.addEventListener("click", e => {
+        if (Visualizer.instance.isActive) {
+            visButton.textContent = originalText;
+            Visualizer.instance.stop();
+        } else {
+            visButton.textContent = "Stop Visualizer";
+            Visualizer.instance.start();
+        }
+        console.log("visualizer", Visualizer.instance.isActive);
+    });
 }
 
 function enableFlipSwitchButton(transformer) {
@@ -361,7 +428,7 @@ function enableSelectComponent(transformer) {
         }
 
         //if (isSwitch) {
-            document.getElementById("flip-button").disabled = false;
+        document.getElementById("flip-button").disabled = false;
         //}
 
         console.log("selected component", transformer.nodes()[0].id(), transformer.nodes()[0].name(), transformer.nodes()[0]);
@@ -376,9 +443,17 @@ function enableKeyboardCommands(transformer) {
 
     stage.container().addEventListener("keydown", (e) => {
         console.log(e.code);
+        handleGlobalKeyCode(e);
         handleSelectionKeyCode(transformer, e.code);
         handleToolbarKeyCode(transformer, e.code);
     });
+}
+
+function handleGlobalKeyCode(e) {
+    if (e.ctrlKey && e.key === 'Enter') {
+        document.getElementById("vis-button").click();
+        e.preventDefault();
+    }
 }
 
 function handleSelectionKeyCode(transformer, code) {
