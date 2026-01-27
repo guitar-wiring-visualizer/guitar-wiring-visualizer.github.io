@@ -297,10 +297,14 @@ function rectanglesOverlap(rect1, rect2) {
 }
 
 function createDiagramLayer() {
+
+    const containerElementId = "diagram";
+    const diagramContainer = document.getElementById(containerElementId);
+
     const stage = new Konva.Stage({
-        container: "diagram",
-        width: 1000,
-        height: 1000,
+        container: containerElementId,
+        width: diagramContainer.clientWidth,
+        height: 1000
     });
 
     const layer = new Konva.Layer();
@@ -372,6 +376,9 @@ function enableSelectComponent(transformer) {
             selectableNode = node;
         } else {
             selectableNode = e.target.getParent();
+            while (selectableNode.getParent().getClassName() !== "Layer") {
+                selectableNode = selectableNode.getParent();
+            }
         }
 
         const isAlreadySelected = transformer.nodes().indexOf(selectableNode) >= 0;
@@ -491,6 +498,7 @@ function enableClearDiagram(layer) {
                 .filter(child => child.getClassName() !== "Transformer")
                 .forEach(child => {
                     child.destroy();
+                    DiagramState.instance.notifyNodeChanged(child);
                     DiagramState.instance.removeComponentById(child.id());
                 });
         }
