@@ -144,6 +144,131 @@ export class Component {
     }
 }
 
+export class Pickup extends Component {
+    constructor(state) {
+        super(state);
+    }
+
+
+}
+
+export class Humbucker extends Pickup {
+    constructor(state) {
+        super(state);
+    }
+
+    static get ImageURL() {
+        return "/img/pu-humbucker.svg";
+    }
+
+    _populateGroup(group) {
+
+        const pinCount = 3;
+        const pins = [];
+
+        // for (let p = 0; p < pinCount; p++) {
+
+        //     const pinComponent = new Pin({});
+        //     this._pins.push(pinComponent.id);
+
+        //     const pinNode = pinComponent.createAsSubcomponent({
+        //         x: Potentiometer._pinsStartAtX + (p * 24),
+        //         y: Potentiometer._pinsStartAtY,
+        //     });
+        //     pins.push(pinNode);
+        //     group.add(pinNode);
+        // }
+
+        Konva.Image.fromURL(Humbucker.ImageURL, (componentNode) => {
+            this._applyGlobalStyling(componentNode);
+            group.add(componentNode);
+            pins.forEach((p) => {
+                p.zIndex(componentNode.zIndex());
+            })
+        });
+    }
+}
+
+export class StratPickup extends Pickup {
+    constructor(state) {
+        super(state);
+    }
+
+    static get ImageURL() {
+        return "/img/pu-strat.svg";
+    }
+
+    _populateGroup(group) {
+        const pin1 = new Pin({});
+        const pinNode1 = pin1.createAsSubcomponent({
+            x: 140,
+            y: 105
+        });
+        group.add(pinNode1);
+
+        const pin2 = new Pin({});
+        const pinNode2 = pin2.createAsSubcomponent({
+            x: 159,
+            y: 105
+        });
+        group.add(pinNode2);
+
+        this._pins.push(pin1.id, pin2.id);
+
+        Konva.Image.fromURL(StratPickup.ImageURL, (componentNode) => {
+            this._applyGlobalStyling(componentNode);
+            group.add(componentNode);
+            [pinNode1, pinNode2].forEach((p) => {
+                p.zIndex(componentNode.zIndex());
+            });
+        });
+    }
+}
+
+export class Jack extends Component {
+    constructor(state) {
+        super(state);
+    }
+
+
+}
+
+export class MonoJack extends Jack {
+    constructor(state) {
+        super(state);
+    }
+
+    static get ImageURL() {
+        return "/img/jack-mono.svg";
+    }
+
+   _populateGroup(group) {
+        const tipPin = new Pin({});
+        const tipPinNode = tipPin.createAsSubcomponent({
+            x: 47,
+            y: 10
+        });
+        group.add(tipPinNode);
+
+        const shieldPin = new Pin({});
+        const shieldPinNode = shieldPin.createAsSubcomponent({
+            x: 48,
+            y: 31
+        });
+        group.add(shieldPinNode);
+
+        this._pins.push(tipPin.id, shieldPin.id);
+
+        Konva.Image.fromURL(MonoJack.ImageURL, (componentNode) => {
+            this._applyGlobalStyling(componentNode);
+            group.add(componentNode);
+            [tipPinNode, shieldPinNode].forEach((p) => {
+                p.zIndex(componentNode.zIndex());
+            });
+        });
+    }
+}
+
 export class Pin extends Component {
     constructor(state) {
         super(state);
