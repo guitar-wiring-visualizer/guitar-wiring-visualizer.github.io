@@ -94,8 +94,9 @@
       <li><code>W</code> Activate "Add Wire" tool</li>
       <li><code>S</code> Activate "Select/Move" tool</li>
       <li><code>C</code> Cycle through color swatches. If a wire is selected the color of just that wire will be changed.</li>
-      <li><code>F</code> Flip selected switch.</li>
-      <li><code>R</code> Rotate selected potentiometer.</li>
+      <li><code>F</code> Flip selected switch</li>
+      <li><code>R</code> Rotate selected potentiometer</li>
+      <li><code>P</code> View properties of selected component</li>
     </ul>
     <h3 id="adding-components"><a class="anchor" aria-hidden="true" tabindex="-1" href="#adding-components"><span class="octicon octicon-link"></span></a>Adding Components</h3>
     <ul>
@@ -129,12 +130,18 @@
       <li><strong>Note: Wire must start and end on a Pin, or it will not be added.</strong></li>
       <li>Turn on "Show Pins" to see where Pins are.</li>
     </ul>
+    <blockquote>
+      <p>Tip: After adding a wire, the Move/Select tool is automatically re-enabled. To quickly add more wires, use the <code>W</code> keyboard command to re-activate the "Add Wire" tool.</p>
+    </blockquote>
     <h3 id="change-wire-color"><a class="anchor" aria-hidden="true" tabindex="-1" href="#change-wire-color"><span class="octicon octicon-link"></span></a>Change Wire Color</h3>
     <ul>
       <li>Activate the "Select/Move" tool.</li>
       <li>Select a Wire</li>
       <li>Click the the desired color-swatch from toolbar.</li>
     </ul>
+    <blockquote>
+      <p>Tip: Use the <code>C</code> keyboard command to quickly change the color of a selected wire.</p>
+    </blockquote>
     <h3 id="flipping-switches"><a class="anchor" aria-hidden="true" tabindex="-1" href="#flipping-switches"><span class="octicon octicon-link"></span></a>Flipping Switches</h3>
     <p>Flipping a switch moves it's actuator through the available positions. This will move the internal connections within the switch to alter signal flow between pins.</p>
     <ul>
@@ -142,23 +149,33 @@
       <li>Hit <code>F</code> or click the "Flip Switch" button.</li>
     </ul>
     <h3 id="rotating-pots"><a class="anchor" aria-hidden="true" tabindex="-1" href="#rotating-pots"><span class="octicon octicon-link"></span></a>Rotating Pots</h3>
-    <p>In the visualizer, pots behave similar to switches and have two states:</p>
+    <p>In the visualizer pots behave similarly to switches and have two states:</p>
     <ol>
-      <li>Rotated all the way clockwise.</li>
-      <li>Rotated all the way counterclockwise.</li>
+      <li>Rotated fully clockwise</li>
+      <li>Rotated fully counterclockwise</li>
     </ol>
-    <p>When rotated all the way clockwise, the wiper pin (<code>2</code>) has zero resistance to pin (<code>3</code>).</p>
-    <p>When rotated all the way counterclockwise, the wiper pin (<code>2</code>) has zero resistance to pin (<code>1</code>).</p>
+    <p>When rotated fully clockwise, the wiper pin (<code>2</code>) has zero resistance to pin (<code>3</code>).</p>
+    <p>When rotated fully counterclockwise, the wiper pin (<code>2</code>) has zero resistance to pin (<code>1</code>).</p>
     <p>For the purposes of signal flow visualization, zero resistance equates to a pin-to-pin connection.</p>
     <h4 id="to-alternate-between-rotational-positions"><a class="anchor" aria-hidden="true" tabindex="-1" href="#to-alternate-between-rotational-positions"><span class="octicon octicon-link"></span></a>To alternate between rotational positions:</h4>
     <ul>
       <li>Select a pot</li>
-      <li>Hit <code>R</code> or click the "Rotate Pot" button.</li>
+      <li>Hit <code>R</code> or click the "Rotate Pot" button</li>
     </ul>
+    <h3 id="properties"><a class="anchor" aria-hidden="true" tabindex="-1" href="#properties"><span class="octicon octicon-link"></span></a>Properties</h3>
+    <ul>
+      <li>Select a Component</li>
+      <li>Hit <code>P</code> or click the "Properties" button</li>
+    </ul>
+    <p>
+      This will open a side drawer showing the properties of the component. You may edit the Label.
+      The text of the label will show next to the component on the diagram.
+    </p>
+    <p>To close the Properties drawer, click out of it, click the "X", or hit <code>Escape</code>.</p>
     <h3 id="visualizer"><a class="anchor" aria-hidden="true" tabindex="-1" href="#visualizer"><span class="octicon octicon-link"></span></a>Visualizer</h3>
     <ul>
-      <li>Start: Click "Start Visualizer" button or use <code>Ctrl-Enter</code>.</li>
-      <li>Stop: Click "Stop Visualizer" button or use <code>Ctrl-Enter</code>.</li>
+      <li>Start: Click the "Start Visualizer" button or use <code>Ctrl+Enter</code>.</li>
+      <li>Stop: Click the "Stop Visualizer" button or use <code>Ctrl+Enter</code>.</li>
     </ul>
     <h3 id="saving"><a class="anchor" aria-hidden="true" tabindex="-1" href="#saving"><span class="octicon octicon-link"></span></a>Saving</h3>
     <h4 id="save"><a class="anchor" aria-hidden="true" tabindex="-1" href="#save"><span class="octicon octicon-link"></span></a>Save</h4>
@@ -177,6 +194,9 @@
     <p>The app shows the flow of signal from pickups, through components, and (hopefully) to an output jack. Note that if the signal goes through a switch, the position of the switch's actuator will route the signal through it's pins accordingly. Likewise, if the signal goes through a pot, the rotation of the pot will determine the routing of signal through it's lugs.</p>
     <p>If a wire is carrying any voltage, it will pulsate. If the wire is also carrying "signal" (i.e. "positive" voltage), it will be animated as pulsating with moving dots showing the flow of signal. A wire coming from "ground" (i.e. carrying "negative" voltage) will only show as pulsating.</p>
     <p>For signal flow to occur, there must be a circuit formed by at least one Jack and one Pickup, where the ground lug of the Jack (the shield pin <code>S</code>) is passing negative voltage to one end of the pickup, and the opposite end of the pickup is passing positive signal voltage to the tip lug of the jack (the <code>T</code> pin).</p>
+    <blockquote>
+      <p>The Guitar Wiring Visualizer uses a simplified model of voltage that may resemble a DC circuit. In reality guitar pickups produce AC current, and the actual voltage and electron activity in the wires and components is not truly unidirectional. The simplified model is for the purposes of visualizing signal flow intuitively and to make circuit design accessible to the layperson.</p>
+    </blockquote>
     <script>/*! @uiw/copy-to-clipboard v1.0.12 | MIT (c) 2021 Kenny Wang | https://github.com/uiwjs/copy-to-clipboard.git */
 !function(e,t){"object"==typeof exports&&"undefined"!=typeof module?module.exports=t():"function"==typeof define&&define.amd?define(t):(e="undefined"!=typeof globalThis?globalThis:e||self).copyTextToClipboard=t()}(this,(function(){"use strict";return function(e,t){const o=document.createElement("textarea");o.value=e,o.setAttribute("readonly",""),o.style={position:"absolute",left:"-9999px"},document.body.appendChild(o);const n=document.getSelection().rangeCount>0&&document.getSelection().getRangeAt(0);o.select();let c=!1;try{c=!!document.execCommand("copy")}catch(e){c=!1}document.body.removeChild(o),n&&document.getSelection&&(document.getSelection().removeAllRanges(),document.getSelection().addRange(n)),t&&t(c)}}));
 
