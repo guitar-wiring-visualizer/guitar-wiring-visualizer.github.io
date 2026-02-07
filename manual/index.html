@@ -95,6 +95,7 @@
       <li><code>S</code> Activate "Select/Move" tool</li>
       <li><code>C</code> Cycle through color swatches. If a wire is selected the color of just that wire will be changed.</li>
       <li><code>F</code> Flip selected switch.</li>
+      <li><code>R</code> Rotate selected potentiometer.</li>
     </ul>
     <h3 id="adding-components"><a class="anchor" aria-hidden="true" tabindex="-1" href="#adding-components"><span class="octicon octicon-link"></span></a>Adding Components</h3>
     <ul>
@@ -138,7 +139,21 @@
     <p>Flipping a switch moves it's actuator through the available positions. This will move the internal connections within the switch to alter signal flow between pins.</p>
     <ul>
       <li>Select a switch</li>
-      <li>Hit <code>F</code> or click "Flip Switch" button.</li>
+      <li>Hit <code>F</code> or click the "Flip Switch" button.</li>
+    </ul>
+    <h3 id="rotating-pots"><a class="anchor" aria-hidden="true" tabindex="-1" href="#rotating-pots"><span class="octicon octicon-link"></span></a>Rotating Pots</h3>
+    <p>In the visualizer, pots behave similar to switches and have two states:</p>
+    <ol>
+      <li>Rotated all the way clockwise.</li>
+      <li>Rotated all the way counterclockwise.</li>
+    </ol>
+    <p>When rotated all the way clockwise, the wiper pin (<code>2</code>) has zero resistance to pin (<code>3</code>).</p>
+    <p>When rotated all the way counterclockwise, the wiper pin (<code>2</code>) has zero resistance to pin (<code>1</code>).</p>
+    <p>For the purposes of signal flow visualization, zero resistance equates to a pin-to-pin connection.</p>
+    <h4 id="to-alternate-between-rotational-positions"><a class="anchor" aria-hidden="true" tabindex="-1" href="#to-alternate-between-rotational-positions"><span class="octicon octicon-link"></span></a>To alternate between rotational positions:</h4>
+    <ul>
+      <li>Select a pot</li>
+      <li>Hit <code>R</code> or click the "Rotate Pot" button.</li>
     </ul>
     <h3 id="visualizer"><a class="anchor" aria-hidden="true" tabindex="-1" href="#visualizer"><span class="octicon octicon-link"></span></a>Visualizer</h3>
     <ul>
@@ -159,7 +174,9 @@
     <h3 id="wires-1"><a class="anchor" aria-hidden="true" tabindex="-1" href="#wires-1"><span class="octicon octicon-link"></span></a>Wires</h3>
     <p>Pins must be connected to each other using Wires. This applies to components that in real life have their own leads (e.g. resistors) that can be directly soldered to the lugs/pins of a component. However, for consistency of function the app needs to use wires in place of leads. (If this doesn't work for you, please submit an issue.)</p>
     <h3 id="visualization"><a class="anchor" aria-hidden="true" tabindex="-1" href="#visualization"><span class="octicon octicon-link"></span></a>Visualization</h3>
-    <p>The app shows the flow of signal from pickups, through components, and (hopefully) to an output jack. Note that if the signal goes through a switch, the position of the switch's actuator will route the signal through it's pins accordingly.</p>
+    <p>The app shows the flow of signal from pickups, through components, and (hopefully) to an output jack. Note that if the signal goes through a switch, the position of the switch's actuator will route the signal through it's pins accordingly. Likewise, if the signal goes through a pot, the rotation of the pot will determine the routing of signal through it's lugs.</p>
+    <p>If a wire is carrying any voltage, it will pulsate. If the wire is also carrying "signal" (i.e. "positive" voltage), it will be animated as pulsating with moving dots showing the flow of signal. A wire coming from "ground" (i.e. carrying "negative" voltage) will only show as pulsating.</p>
+    <p>For signal flow to occur, there must be a circuit formed by at least one Jack and one Pickup, where the ground lug of the Jack (the shield pin <code>S</code>) is passing negative voltage to one end of the pickup, and the opposite end of the pickup is passing positive signal voltage to the tip lug of the jack (the <code>T</code> pin).</p>
     <script>/*! @uiw/copy-to-clipboard v1.0.12 | MIT (c) 2021 Kenny Wang | https://github.com/uiwjs/copy-to-clipboard.git */
 !function(e,t){"object"==typeof exports&&"undefined"!=typeof module?module.exports=t():"function"==typeof define&&define.amd?define(t):(e="undefined"!=typeof globalThis?globalThis:e||self).copyTextToClipboard=t()}(this,(function(){"use strict";return function(e,t){const o=document.createElement("textarea");o.value=e,o.setAttribute("readonly",""),o.style={position:"absolute",left:"-9999px"},document.body.appendChild(o);const n=document.getSelection().rangeCount>0&&document.getSelection().getRangeAt(0);o.select();let c=!1;try{c=!!document.execCommand("copy")}catch(e){c=!1}document.body.removeChild(o),n&&document.getSelection&&(document.getSelection().removeAllRanges(),document.getSelection().addRange(n)),t&&t(c)}}));
 
