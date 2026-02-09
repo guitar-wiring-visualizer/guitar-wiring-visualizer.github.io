@@ -128,7 +128,7 @@
       <li>Optionally click a color-swatch from toolbar for new wire color.</li>
       <li>Draw line from component Pin to component Pin.</li>
       <li><strong>Note: Wire must start and end on a Pin, or it will not be added.</strong></li>
-      <li>Turn on "Show Pins" to see where Pins are.</li>
+      <li>Turn on "Pins Hints" to see where Pins are.</li>
     </ul>
     <blockquote>
       <p>Tip: After adding a wire, the Move/Select tool is automatically re-enabled. To quickly add more wires, use the <code>W</code> keyboard command to re-activate the "Add Wire" tool.</p>
@@ -148,6 +148,9 @@
       <li>Select a switch</li>
       <li>Hit <code>F</code> or click the "Flip Switch" button.</li>
     </ul>
+    <blockquote>
+      <p>Tip: Keep the "Internals" visibility toggle enabled to see visual representations of the internal connections between pins based on the actuator position.</p>
+    </blockquote>
     <h3 id="rotating-pots"><a class="anchor" aria-hidden="true" tabindex="-1" href="#rotating-pots"><span class="octicon octicon-link"></span></a>Rotating Pots</h3>
     <p>In the visualizer pots behave similarly to switches and have two states:</p>
     <ol>
@@ -162,6 +165,9 @@
       <li>Select a pot</li>
       <li>Hit <code>R</code> or click the "Rotate Pot" button</li>
     </ul>
+    <blockquote>
+      <p>Tip: Keep the "Internals" visibility toggle enabled to see how the pots lugs are connected depending on rotation.</p>
+    </blockquote>
     <h3 id="properties"><a class="anchor" aria-hidden="true" tabindex="-1" href="#properties"><span class="octicon octicon-link"></span></a>Properties</h3>
     <ul>
       <li>Select a Component</li>
@@ -177,12 +183,23 @@
       <li>Start: Click the "Start Visualizer" button or use <code>Ctrl+Enter</code>.</li>
       <li>Stop: Click the "Stop Visualizer" button or use <code>Ctrl+Enter</code>.</li>
     </ul>
+    <blockquote>
+      <p>Note: You can add, remove, or make changes to any component while the visualizer is running and the signal flow will re-adjust.</p>
+    </blockquote>
     <h3 id="saving"><a class="anchor" aria-hidden="true" tabindex="-1" href="#saving"><span class="octicon octicon-link"></span></a>Saving</h3>
     <h4 id="save"><a class="anchor" aria-hidden="true" tabindex="-1" href="#save"><span class="octicon octicon-link"></span></a>Save</h4>
     <p>To save a link to the the diagram, click the "Save" button. This will update the URL of the browser with the state of the diagram. You may copy the current window URL and send to a friend!</p>
-    <p>Turn on "Copy to clipboard on Save" to automatically copy the link to your clipboard when saving.</p>
+    <p>Click the "Copy URL" button to easliy copy the link to the currently saved diagram to your clipboard.</p>
     <h4 id="load"><a class="anchor" aria-hidden="true" tabindex="-1" href="#load"><span class="octicon octicon-link"></span></a>Load</h4>
     <p>To view a previously saved diagram, simply navigate to the saved link.</p>
+    <h3 id="visibility-toggles"><a class="anchor" aria-hidden="true" tabindex="-1" href="#visibility-toggles"><span class="octicon octicon-link"></span></a>Visibility Toggles</h3>
+    <p>Use the visibility toggles to show or hide component elements.</p>
+    <ul>
+      <li><strong>Pin Hints</strong> shows or hides the pin connection hints.</li>
+      <li><strong>Actuators</strong> shows or hides the virtual actuators of switches.</li>
+      <li><strong>Internals</strong> shows or hides the internal pin-to-pin connections in switches and pots.</li>
+      <li><strong>Labels</strong> shows or hides the label text of components.</li>
+    </ul>
     <h2 id="concepts"><a class="anchor" aria-hidden="true" tabindex="-1" href="#concepts"><span class="octicon octicon-link"></span></a>Concepts</h2>
     <h3 id="components"><a class="anchor" aria-hidden="true" tabindex="-1" href="#components"><span class="octicon octicon-link"></span></a>Components</h3>
     <p>This means any electrical component such as a guitar pickup, potentiometer (pot), switch, jack, capacitor, resistor, etc.</p>
@@ -195,7 +212,7 @@
     <p>If a wire is carrying any voltage, it will pulsate. If the wire is also carrying "signal" (i.e. "positive" voltage), it will be animated as pulsating with moving dots showing the flow of signal. A wire coming from "ground" (i.e. carrying "negative" voltage) will only show as pulsating.</p>
     <p>For signal flow to occur, there must be a circuit formed by at least one Jack and one Pickup, where the ground lug of the Jack (the shield pin <code>S</code>) is passing negative voltage to one end of the pickup, and the opposite end of the pickup is passing positive signal voltage to the tip lug of the jack (the <code>T</code> pin).</p>
     <blockquote>
-      <p>The Guitar Wiring Visualizer uses a simplified model of voltage that may resemble a DC circuit. In reality guitar pickups produce AC current, and the actual voltage and electron activity in the wires and components is not truly unidirectional. The simplified model is for the purposes of visualizing signal flow intuitively and to make circuit design accessible to the layperson.</p>
+      <p>The Guitar Wiring Visualizer uses a simplified model of voltage that may resemble a DC circuit. In reality guitar pickups produce AC, and the actual voltage and electron activity in the wires and components is not truly unidirectional. The simplified model is for the purposes of visualizing signal flow intuitively and to make guitar circuit design accessible to the layperson.</p>
     </blockquote>
     <script>/*! @uiw/copy-to-clipboard v1.0.12 | MIT (c) 2021 Kenny Wang | https://github.com/uiwjs/copy-to-clipboard.git */
 !function(e,t){"object"==typeof exports&&"undefined"!=typeof module?module.exports=t():"function"==typeof define&&define.amd?define(t):(e="undefined"!=typeof globalThis?globalThis:e||self).copyTextToClipboard=t()}(this,(function(){"use strict";return function(e,t){const o=document.createElement("textarea");o.value=e,o.setAttribute("readonly",""),o.style={position:"absolute",left:"-9999px"},document.body.appendChild(o);const n=document.getSelection().rangeCount>0&&document.getSelection().getRangeAt(0);o.select();let c=!1;try{c=!!document.execCommand("copy")}catch(e){c=!1}document.body.removeChild(o),n&&document.getSelection&&(document.getSelection().removeAllRanges(),document.getSelection().addRange(n)),t&&t(c)}}));
